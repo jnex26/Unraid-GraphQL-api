@@ -50,10 +50,54 @@ DynamicJsonDocument getUnraidContainers() {
    return __resultset; 
 }
 
+DynamicJsonDocument getUnraidVMs() {
+   DynamicJsonDocument __resultset(4096);
+   DynamicJsonDocument __query(1024);
+   __query["query"]["vms"]["id"]=true;
+   __query["query"]["vms"]["domain"]["names"]=true;
+   __resultset = getGraph(__query);
+   return __resultset; 
+}
+
+DynamicJsonDocument getUnraidArrayParity() {
+   DynamicJsonDocument __resultset(4096);
+   DynamicJsonDocument __query(1024);
+   String __ids[] = {"device","format","numErrors","size","status","critical","rotational","id","warning","type"};
+  for(String __id: __ids){
+    __query["query"]["array"]["parities"][__id]=true;
+  }
+  __resultset = getGraph(__query);
+   return __resultset; 
+}
+
+DynamicJsonDocument getUnraidArrayDisks() {
+   DynamicJsonDocument __resultset(4096);
+   DynamicJsonDocument __query(1024);
+   String __ids[] = {"device","format","numErrors","size","status","critical","rotational","id","warning","type"};
+  for(String __id: __ids){
+    __query["query"]["array"]["disks"][__id]=true;
+  }
+  __resultset = getGraph(__query);
+   return __resultset; 
+}
+
+DynamicJsonDocument getUnraidParityHistory() {
+   DynamicJsonDocument __resultset(4096);
+   DynamicJsonDocument __query(1024);
+   String __ids[] = {"date","errors","running","speed","status","progress"};
+  for(String __id: __ids){
+    __query["query"]["parityHistory"][__id]=true;
+  }
+  __resultset = getGraph(__query);
+   return __resultset; 
+}
+
 //
 //  Actual work below. 
 //
 //
+
+
 
 DynamicJsonDocument returnGraphQuery(DynamicJsonDocument __query) {
   String __temp;
@@ -138,6 +182,12 @@ void setup() {
   tempdoc = getUnraidContainers();
   serializeJson(tempdoc,Serial);
   tempdoc = getUnraidMemory();
+  serializeJson(tempdoc,Serial);
+  tempdoc = getUnraidArrayParity();
+  serializeJson(tempdoc,Serial);
+  tempdoc = getUnraidArrayDisks();
+  serializeJson(tempdoc,Serial);
+  tempdoc = getUnraidParityHistory();
   serializeJson(tempdoc,Serial);
 }
 
