@@ -1,23 +1,24 @@
 #ifndef GRAPHQL_H
 #define GRAPHQL_H
 
+#include <Arduino.h>
+
 class GraphQL {
   private:
-    char* nodeName;
-    char* parentName;
+    String nodeName;
+    String parentName;
+    String fullName;
     int id;
 
-    static const int MAX_CHILDREN = 50;
-    GraphQL* children[MAX_CHILDREN];
-    int childCount;
-
   public:
-    // Constructor
-    GraphQL(char *NodeName, char *ParentName, int ID);
+    GraphQL(String node, String parent, int ID);
 
-    // Method to print info
-    void printInfo(int indent = 0);
-    bool addChild(GraphQL* child);
+    void printInfo() const;
+
+    String getNodeName() const;
+    String getParentName() const;
+    String getFullName() const;
+    int getID() const;
 };
 
 #endif
