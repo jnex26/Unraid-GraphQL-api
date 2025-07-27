@@ -19,7 +19,8 @@ tested on ESP32-S3 ESP32-C3...
 
 Notes on the creds.h file. needs to look like below. 
 
-`#ifndef STASSID                        // either use an external .h file containing STASSID and STAPSK - or 
+`
+#ifndef STASSID                        // either use an external .h file containing STASSID and STAPSK - or 
 //                                     // add defines to your boards - or
 #define STASSID "<YOUR SSID HERE>"            // ... modify these line to your SSID
 #define STAPSK  "<YOUR PASSWORD HERE >"        // ... and set your WIFI password
