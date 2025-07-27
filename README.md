@@ -26,9 +26,9 @@ once your connected ( i would really make sure you have a trap for connection fa
 
 Load the Class 
 
-'''
-UnraidGraph unraid ;
-'''
+
+`UnraidGraph unraid ;
+
 
 if you want noisy output to the Serial connection ( Remember to use Serial.Begin(bps)) and set the serial mode in the IDE. 
 '''
