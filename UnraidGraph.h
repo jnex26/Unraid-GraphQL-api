@@ -19,9 +19,19 @@ public:
    UnraidGraph();
    void begin(String graphurl,String key);
    void debug(bool mode);
-   DynamicJsonDocument getGraph(DynamicJsonDocument __GraphQuery);
-   DynamicJsonDocument returnGraphQuery(DynamicJsonDocument __query);
-   DynamicJsonDocument getUnraidParityHistory();
+   JsonDocument getGraph(JsonDocument __GraphQuery);
+   JsonDocument returnGraphQuery(JsonDocument __query);
+   
+   // This is the pre-canned queies. 
+
+   JsonDocument getUnraidParityHistory();
+   JsonDocument getUnraidArrayParity();
+   JsonDocument getUnraidArrayDisks();
+   JsonDocument getUnraidContainers();
+   JsonDocument getUnraidArrayCapacity();
+   JsonDocument getUnraidDisks();
+   JsonDocument getUnraidMemory();
+   JsonDocument getUnraidVMs();
 
 };
 
