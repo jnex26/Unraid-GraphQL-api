@@ -7,6 +7,7 @@ bool debugMode = false; // default debugmode
 
 
 
+
 // constructor 
 UnraidGraph::UnraidGraph()
 {
@@ -190,3 +191,6 @@ JsonDocument UnraidGraph::getUnraidArrayDisks() {
   __resultset = UnraidGraph::getGraph(__query);
    return __resultset; 
 }
+
+
+

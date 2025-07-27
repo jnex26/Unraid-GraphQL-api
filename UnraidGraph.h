@@ -13,6 +13,8 @@ class UnraidGraph
 {
 
 private: 
+   String __Query;
+   
    
 public: 
    //constructor 
