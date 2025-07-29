@@ -15,6 +15,7 @@ class GraphQLManager {
 
     bool addChild(String nodeName, String parentName, int ID);
     String getRootNode() const ;
+    String getGraphQLQuery() const ;
     bool addRoot(String nodeName);
     void printAll() const;
 };

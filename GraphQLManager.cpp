@@ -51,12 +51,12 @@ String GraphQLManager::getRootNode() const {
 }
 
 String GraphQLManager::getGraphQLQuery() const {
-   String fullquery = GraphQLManager::getRootNode()
+   String fullquery = GraphQLManager::getRootNode();
    fullquery += "{"; //open the brackets. 
    int Bracket = 1;
    bool processed[MAX_NODES];
    bool ifMatch=false;
-   int processed[0]=true;
+   processed[0]=true;
    String parentNode=GraphQLManager::getRootNode();
    int processNodes=1; 
    int breakloop = 10000;
@@ -68,7 +68,7 @@ String GraphQLManager::getGraphQLQuery() const {
         ifMatch=true;
     } 
     
-    if (processNodes => count && ifMatch) { 
+    if (processNodes >= count && ifMatch) { 
         
         processNodes=1; 
         ifMatch=false;
@@ -78,6 +78,6 @@ String GraphQLManager::getGraphQLQuery() const {
         break;
     }
     processNodes++;
-   } while (processNodes < count)
+   } while (processNodes < count);
     
 }
