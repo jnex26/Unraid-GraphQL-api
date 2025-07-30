@@ -29,11 +29,13 @@ public:
    JsonDocument getUnraidParityHistory();
    JsonDocument getUnraidArrayParity();
    JsonDocument getUnraidArrayDisks();
+   JsonDocument getUnraidArrayDisksCapacity();
    JsonDocument getUnraidContainers();
    JsonDocument getUnraidArrayCapacity();
    JsonDocument getUnraidDisks();
    JsonDocument getUnraidMemory();
    JsonDocument getUnraidVMs();
+   JsonDocument getUnraidCacheCapacity();
 
 };
 

@@ -26,7 +26,7 @@ JsonDocument UnraidGraph::getGraph(JsonDocument __GraphQuery){
   JsonDocument __doc;
   String __jsonWebcall;
   __doc = UnraidGraph::returnGraphQuery(__GraphQuery);
-  serializeJson(__GraphQuery,Serial);
+  if (debugMode){ (__GraphQuery,Serial); }
   serializeJson(__doc,__jsonWebcall);
   __doc = false;
   WiFiClient client;
@@ -46,7 +46,7 @@ JsonDocument UnraidGraph::getGraph(JsonDocument __GraphQuery){
 JsonDocument UnraidGraph::returnGraphQuery(JsonDocument __query) {
   String __temp;
   serializeJson(__query,__temp);
-  Serial.println("");
+  //Serial.println("");
   __temp.replace(F(":true"),"");
   __temp.replace(F(":"),"");
   __temp.replace("\"","");
@@ -154,7 +154,7 @@ JsonDocument UnraidGraph::getUnraidArrayParity() {
   if (debugMode) {
     String __reallytemp; 
     serializeJson(__query,__reallytemp);
-    Serial.println(__reallytemp);
+  //  Serial.println(__reallytemp);
   }
   __resultset = UnraidGraph::getGraph(__query);
    return __resultset; 
@@ -191,6 +191,40 @@ JsonDocument UnraidGraph::getUnraidArrayDisks() {
   __resultset = UnraidGraph::getGraph(__query);
    return __resultset; 
 }
+
+JsonDocument UnraidGraph::getUnraidArrayDisksCapacity() {
+   JsonDocument __resultset;
+   JsonDocument __query;
+   String __ids[] = {"idx","fsFree","fsUsed","status","fsSize"};
+  for(String __id: __ids){
+    __query["query"]["array"]["disks"][__id]=true;
+  }
+  if (debugMode) {
+    String __reallytemp; 
+    serializeJson(__query,__reallytemp);
+    Serial.println(__reallytemp);
+  }
+  __resultset = UnraidGraph::getGraph(__query);
+   return __resultset; 
+}
+
+JsonDocument UnraidGraph::getUnraidCacheCapacity() {
+   JsonDocument __resultset;
+   JsonDocument __query;
+   String __ids[] = {"idx","fsFree","fsUsed","status","fsSize","name"};
+  for(String __id: __ids){
+    __query["query"]["array"]["caches"][__id]=true;
+  }
+  if (debugMode) {
+    String __reallytemp; 
+    serializeJson(__query,__reallytemp);
+    Serial.println(__reallytemp);
+  }
+  __resultset = UnraidGraph::getGraph(__query);
+   return __resultset; 
+}
+
+
 
 
 
