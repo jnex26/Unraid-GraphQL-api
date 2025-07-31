@@ -23,7 +23,7 @@ public:
    void debug(bool __mode);
    void setSecure(bool __mode);
    void setCArootCert(char* __rootCACert);
-   void UnraidGraph::settimeOut(int __timeout);
+   void settimeOut(int __timeout);
 
    JsonDocument getGraph(JsonDocument __GraphQuery);
    JsonDocument getGraphInsecure(JsonDocument __GraphQuery);
