@@ -7,6 +7,7 @@ bool debugMode = false; // default debugmode
 bool isSecure = false;
 bool hasCert = false;
 char* rootCACertificate ;
+int timeOut = 15000;
 
 
 
@@ -21,17 +22,21 @@ void UnraidGraph::begin(String graphurl,String key){
   unraidapiurl = graphurl;
 }
 
-void UnraidGraph::debug(bool mode){
-  debugMode = mode; 
+void UnraidGraph::debug(bool __mode){
+  debugMode = __mode; 
 }
 
-void UnraidGraph::setSecure(bool mode){
-  isSecure = mode; 
+void UnraidGraph::setSecure(bool __mode){
+  isSecure = __mode; 
 }
 
-void UnraidGraph::setCArootCert(char* rootCACert){
-  rootCACertificate = rootCACert;
+void UnraidGraph::setCArootCert(char* __rootCACert){
+  rootCACertificate = __rootCACert;
   hasCert = true;
+}
+
+void UnraidGraph::settimeOut(int __timeout){
+ timeOut=__timeout
 }
 
 
@@ -58,7 +63,7 @@ JsonDocument UnraidGraph::getGraphInsecure(JsonDocument __GraphQuery){
   http.addHeader("Content-Type", "application/json");
   http.addHeader("x-api-key", apikey);
   if (debugMode) {Serial.println(__jsonWebcall);}
-  http.setTimeout(15000);
+  http.setTimeout(timeOut);
   http.POST(__jsonWebcall);
   deserializeJson(__doc, http.getString());
   http.end();
@@ -84,7 +89,7 @@ JsonDocument UnraidGraph::getGraphSecure(JsonDocument __GraphQuery){
   http.addHeader("Content-Type", "application/json");
   http.addHeader("x-api-key", apikey);
   if (debugMode) {Serial.println(__jsonWebcall);}
-  http.setTimeout(15000);
+  http.setTimeout(timeOut);
   http.POST(__jsonWebcall);
   deserializeJson(__doc, http.getString());
   http.end();

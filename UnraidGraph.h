@@ -20,10 +20,10 @@ public:
    //constructor 
    UnraidGraph();
    void begin(String graphurl,String key);
-   void debug(bool mode);
-   void setSecure(bool mode);
-   void setCArootCert(char* rootCACert);
-   
+   void debug(bool __mode);
+   void setSecure(bool __mode);
+   void setCArootCert(char* __rootCACert);
+
    JsonDocument getGraph(JsonDocument __GraphQuery);
    JsonDocument getGraphInsecure(JsonDocument __GraphQuery);
    JsonDocument getGraphSecure(JsonDocument __GraphQuery);
