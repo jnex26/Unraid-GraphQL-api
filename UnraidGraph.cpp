@@ -183,12 +183,15 @@ JsonDocument UnraidGraph::getUnraidContainers() {
     Serial.println(__reallytemp);
 
   }
+   if (debugMode) {
    Serial.println("Starting Transaction");
    Serial.println(keepmilli);
+   }
    __resultset = UnraidGraph::getGraph(__query);
+   if (debugMode) {
    Serial.println(millis());
    Serial.println("Ending Transaction");
-
+   }
    return __resultset; 
 }
 
