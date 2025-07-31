@@ -32,10 +32,10 @@ JsonDocument UnraidGraph::getGraph(JsonDocument __GraphQuery){
   WiFiClient client;
   HTTPClient http;
   http.begin(client,unraidapiurl);
-  http.setTimeout(5000);
   http.addHeader("Content-Type", "application/json");
   http.addHeader("x-api-key", apikey);
   if (debugMode) {Serial.println(__jsonWebcall);}
+  http.setTimeout(15000);
   http.POST(__jsonWebcall);
   deserializeJson(__doc, http.getString());
   http.end();
@@ -116,17 +116,23 @@ JsonDocument UnraidGraph::getUnraidArrayCapacity() {
 JsonDocument UnraidGraph::getUnraidContainers() {
    JsonDocument __resultset;
    JsonDocument __query;
-   __query["query"]["docker"]["containers"]["labels"]=true;
+   unsigned long keepmilli = millis();
+   __query["query"]["docker"]["containers"]["id"]=true;
    __query["query"]["docker"]["containers"]["names"]=true;
    __query["query"]["docker"]["containers"]["status"]=true;
    __query["query"]["docker"]["containers"]["state"]=true;
-   __query["query"]["docker"]["containers"]["ports"]["publicPort"]=true;
   if (debugMode) {
     String __reallytemp; 
     serializeJson(__query,__reallytemp);
     Serial.println(__reallytemp);
+
   }
+   Serial.println("Starting Transaction");
+   Serial.println(keepmilli);
    __resultset = UnraidGraph::getGraph(__query);
+   Serial.println(millis());
+   Serial.println("Ending Transaction");
+
    return __resultset; 
 }
 
