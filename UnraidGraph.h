@@ -21,7 +21,10 @@ public:
    UnraidGraph();
    void begin(String graphurl,String key);
    void debug(bool mode);
+   void setSecure(bool mode);
    JsonDocument getGraph(JsonDocument __GraphQuery);
+   JsonDocument getGraphInsecure(JsonDocument __GraphQuery);
+   JsonDocument getGraphSecure(JsonDocument __GraphQuery);
    JsonDocument returnGraphQuery(JsonDocument __query);
    
    // This is the pre-canned queies. 

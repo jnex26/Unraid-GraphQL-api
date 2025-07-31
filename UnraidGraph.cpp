@@ -4,6 +4,7 @@
 String apikey; // the Auth Creds for the APi Key 
 String unraidapiurl; // the url for the unraid API 
 bool debugMode = false; // default debugmode 
+bool isSecure = true;
 
 
 
@@ -22,7 +23,21 @@ void UnraidGraph::debug(bool mode){
   debugMode = mode; 
 }
 
+void UnraidGraph::setSecure(bool mode){
+  isSecure = mode; 
+}
+
 JsonDocument UnraidGraph::getGraph(JsonDocument __GraphQuery){  
+  JsonDocument __doc;
+  if (isSecure) {
+     __doc = UnraidGraph::getGraphSecure(__GraphQuery);
+  } else {
+     __doc = UnraidGraph::getGraphInsecure(__GraphQuery);
+  }
+  return  __doc;
+}
+
+JsonDocument UnraidGraph::getGraphInsecure(JsonDocument __GraphQuery){  
   JsonDocument __doc;
   String __jsonWebcall;
   __doc = UnraidGraph::returnGraphQuery(__GraphQuery);
@@ -41,6 +56,28 @@ JsonDocument UnraidGraph::getGraph(JsonDocument __GraphQuery){
   http.end();
   return  __doc;
 }
+
+
+JsonDocument UnraidGraph::getGraphSecure(JsonDocument __GraphQuery){  
+  JsonDocument __doc;
+  String __jsonWebcall;
+  __doc = UnraidGraph::returnGraphQuery(__GraphQuery);
+  if (debugMode){ (__GraphQuery,Serial); }
+  serializeJson(__doc,__jsonWebcall);
+  __doc = false;
+  WiFiClient client;
+  HTTPClient http;
+  http.begin(client,unraidapiurl);
+  http.addHeader("Content-Type", "application/json");
+  http.addHeader("x-api-key", apikey);
+  if (debugMode) {Serial.println(__jsonWebcall);}
+  http.setTimeout(15000);
+  http.POST(__jsonWebcall);
+  deserializeJson(__doc, http.getString());
+  http.end();
+  return  __doc;
+}
+
 
 
 JsonDocument UnraidGraph::returnGraphQuery(JsonDocument __query) {
@@ -121,6 +158,7 @@ JsonDocument UnraidGraph::getUnraidContainers() {
    __query["query"]["docker"]["containers"]["names"]=true;
    __query["query"]["docker"]["containers"]["status"]=true;
    __query["query"]["docker"]["containers"]["state"]=true;
+   __query["query"]["docker"]["containers"]["autoStart"]=true;
   if (debugMode) {
     String __reallytemp; 
     serializeJson(__query,__reallytemp);
