@@ -22,6 +22,8 @@ public:
    void begin(String graphurl,String key);
    void debug(bool mode);
    void setSecure(bool mode);
+   void setCArootCert(char* rootCACert);
+   
    JsonDocument getGraph(JsonDocument __GraphQuery);
    JsonDocument getGraphInsecure(JsonDocument __GraphQuery);
    JsonDocument getGraphSecure(JsonDocument __GraphQuery);

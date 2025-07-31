@@ -4,7 +4,9 @@
 String apikey; // the Auth Creds for the APi Key 
 String unraidapiurl; // the url for the unraid API 
 bool debugMode = false; // default debugmode 
-bool isSecure = true;
+bool isSecure = false;
+bool hasCert = false;
+char* rootCACertificate ;
 
 
 
@@ -26,6 +28,12 @@ void UnraidGraph::debug(bool mode){
 void UnraidGraph::setSecure(bool mode){
   isSecure = mode; 
 }
+
+void UnraidGraph::setCArootCert(char* rootCACert){
+  rootCACertificate = rootCACert;
+  hasCert = true;
+}
+
 
 JsonDocument UnraidGraph::getGraph(JsonDocument __GraphQuery){  
   JsonDocument __doc;
@@ -65,7 +73,12 @@ JsonDocument UnraidGraph::getGraphSecure(JsonDocument __GraphQuery){
   if (debugMode){ (__GraphQuery,Serial); }
   serializeJson(__doc,__jsonWebcall);
   __doc = false;
-  WiFiClient client;
+  WiFiClientSecure client;
+  if (hasCert) {
+    client.setCACert(rootCACertificate);
+  } else {
+    client.setInsecure();
+  }
   HTTPClient http;
   http.begin(client,unraidapiurl);
   http.addHeader("Content-Type", "application/json");
