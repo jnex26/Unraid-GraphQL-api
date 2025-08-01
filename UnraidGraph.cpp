@@ -36,7 +36,7 @@ void UnraidGraph::setCArootCert(char* __rootCACert){
 }
 
 void UnraidGraph::settimeOut(int __timeout){
- timeOut=__timeout
+ timeOut=__timeout;
 }
 
 
